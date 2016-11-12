@@ -70,10 +70,7 @@ http.createServer(function (req, res) {
   createWebpage(req, res);
 }).listen(theport);
 
-function createWebpage (req, res) {
-  // Let's find all the documents
-  
-}
+
 
 // Tell the console we're getting ready.
 // The listener in http.createServer should still be active after these messages are emitted.
