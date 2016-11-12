@@ -77,11 +77,7 @@ function createWebpage (req, res) {
       res.write(html1 + JSON.stringify(result, undefined, 2) +  html2 + result.length + html3);
       
       query.exec(function(err, result) {
-	if (!err) {
-	  res.end(html4 + JSON.stringify(result, undefined, 2) + html5 + result.length + html6);
-	} else {
-	  res.end('Error in second query. ' + err)
-	}
+	
       });
     } else {
       res.end('Error in first query. ' + err)
