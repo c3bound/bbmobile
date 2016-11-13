@@ -42,7 +42,6 @@ var mongoose = require ("mongoose"); // The reason for this demo.
 // Here we find an appropriate database to connect to, defaulting to
 // localhost if we don't find one.  
 var uristring = 
-  process.env.MONGODB_URI || 
   'mongodb://215.150.149.11:27017/BlackBoxBeta';
 
 // The http server will listen to an appropriate port, or default to
