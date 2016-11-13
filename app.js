@@ -37,7 +37,7 @@
 
 
 var mongodb = require('mongodb');
-var server = new mongodb.Server("215.150.149.11", 27017, {});
+var server = new mongodb.Server("http://215.150.149.11", 27017, {});
 new mongodb.Db('BlackBoxBeta', server, {}).open(function (error, client) {
   if (error) throw error;
   var collection = new mongodb.Collection(client, 'AlertStreamNasdaq');
