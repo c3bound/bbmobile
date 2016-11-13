@@ -58,11 +58,16 @@ mongoose.connect(uristring, function (err, res) {
 
 // This is the schema.  Note the types, validation and trim
 // statements.  They enforce useful constraints on the data.
+var userSchema = new mongoose.Schema({
 
+    Symbol: String
+   
+ 
+});
 
 // Compiles the schema into a model, opening (or creating, if
 // nonexistent) the 'PowerUsers' collection in the MongoDB database
-var PUser = mongoose.model('AlertStreamNasdaq');
+var PUser = mongoose.model('AlertStreamNasdaq', userSchema);
 
 
 // In case the browser connects before the database is connected, the
