@@ -34,16 +34,14 @@
 
 //
 // Preamble
+var mongoose = require('mongoose');
 
+var db = mongoose.connection;
 
-var mongodb = require('mongodb');
-var server = new mongodb.Server("http://215.150.149.11", 27017, {});
-new mongodb.Db('BlackBoxBeta', server, {}).open(function (error, client) {
-  if (error) throw error;
-  var collection = new mongodb.Collection(client, 'AlertStreamNasdaq');
-  collection.find({}, {limit:10}).toArray(function(err, docs) {
-    console.dir(docs);
-  });
+db.on('error', console.error);
+db.once('open', function() {
+  // Create your schemas and models here.
 });
 
+mongoose.connect('mongodb://215.150.149.11:27017/BlackBoxBeta');
 
