@@ -58,15 +58,28 @@ mongoose.connect(uristring, function (err, res) {
 });
 
 
-
+// This is the schema.  Note the types, validation and trim
+// statements.  They enforce useful constraints on the data.
+var userSchema = new mongoose.Schema({
+	
+	_id : String,
+    Symbol : String,
+    CreatedDttm : String,
+    MessageType : String,
+    DateTime : String,
+    PriceAtAlert : String,
+    Message : String,
+    Exchange : String
+  
+});
 
 // Compiles the schema into a model, opening (or creating, if
 // nonexistent) the 'PowerUsers' collection in the MongoDB database
-var Stocks = mongoose.model('AlertStreamNasdaq');
+var Stocks = mongoose.model('AlertStreamNasdaq', userSchema);
 
 
 // Find all movies.
-Stocks.find(function(err, symbol) {
+Stocks.find(function(err, movies) {
   if (err) return console.error(err);
-  console.dir(symbol);
+  console.dir(movies);
 });
