@@ -78,11 +78,6 @@ var userSchema = new mongoose.Schema({
 var Stocks = mongoose.model('AlertStreamNasdaq', userSchema);
 
 
-// Find all movies.
-Stocks.find(function(err, movies) {
-  if (err) return console.error(err);
-  console.dir(movies);
-});
 
 // In case the browser connects before the database is connected, the
 // user will see this message.
@@ -99,7 +94,7 @@ http.createServer(function (req, res) {
 
 function createWebpage (req, res) {
   // Let's find all the documents
-  PUser.find({}).exec(function(err, result) { 
+  Stocks.find({}).exec(function(err, result) { 
     if (!err) { 
       res.write(html1 + JSON.stringify(result, undefined, 2) +  html2 + result.length + html3);
       // Let's see if there are any senior citizens (older than 64) with the last name Doe using the query constructor
