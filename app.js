@@ -57,3 +57,16 @@ mongoose.connect(uristring, function (err, res) {
   }
 });
 
+
+
+
+// Compiles the schema into a model, opening (or creating, if
+// nonexistent) the 'PowerUsers' collection in the MongoDB database
+var Stocks = mongoose.model('AlertStreamNasdaq');
+
+
+// Find all movies.
+Stocks.find(function(err, symbol) {
+  if (err) return console.error(err);
+  console.dir(symbol);
+});
