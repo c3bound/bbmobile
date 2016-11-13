@@ -94,7 +94,7 @@ http.createServer(function (req, res) {
 
 function createWebpage (req, res) {
   // Let's find all the documents
-  Stocks.find(function (err, todos) { 
+  Stocks.find(function (err, result) { 
     if (!err) { 
       res.write(html1 + JSON.stringify(result, undefined, 2) +  html2 + result.length + html3);
       // Let's see if there are any senior citizens (older than 64) with the last name Doe using the query constructor
