@@ -34,7 +34,7 @@
 
 //
 // Preamble
-
+var http = require ('http');	     // For serving a basic web page.
 var mongoose = require ("mongoose"); // The reason for this demo.
 
 // Here we find an appropriate database to connect to, defaulting to
