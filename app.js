@@ -85,7 +85,7 @@ http.createServer(function (req, res) {
 
 function createWebpage (req, res) {
   // Let's find all the documents
- 
+  res.write(html1 + JSON.stringify(result, undefined, 2) +  html2 + result.length + html3);
 }
 
 // Tell the console we're getting ready.
