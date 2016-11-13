@@ -60,8 +60,8 @@ mongoose.connect(uristring, function (err, res) {
 
 
 http.createServer(function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  createWebpage(req, res);
+  
+  
 }).listen(theport);
 
 
