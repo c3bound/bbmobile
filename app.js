@@ -94,10 +94,26 @@ http.createServer(function (req, res) {
 
 function createWebpage (req, res) {
   // Let's find all the documents
-  Stocks.find(function (err, todos) {
-  if (err) return console.error(err);
-  console.log(todos)
-});
+  Stocks.find(function (err, todos) { 
+    if (!err) { 
+      res.write(html1 + JSON.stringify(result, undefined, 2) +  html2 + result.length + html3);
+      // Let's see if there are any senior citizens (older than 64) with the last name Doe using the query constructor
+      var query = Stocks.find({}); // (ok in this example, it's all entries)
+      query.where('MessageType').gt(6);
+      query.exec(function(err, result) {
+	if (!err) {
+	  res.end(html4 + JSON.stringify(result, undefined, 2) + html5 + result.length + html6);
+	} else {
+	  res.end('Error in second query. ' + err)
+	}
+      });
+    } else {
+      res.end('Error in first query. ' + err)
+    };
+  });
+
+
+
 }
 
 // Tell the console we're getting ready.
