@@ -94,23 +94,10 @@ http.createServer(function (req, res) {
 
 function createWebpage (req, res) {
   // Let's find all the documents
-  Stocks.find({}).exec(function(err, result) { 
-    if (!err) { 
-      res.write(html1 + JSON.stringify(result, undefined, 2) +  html2 + result.length + html3);
-      // Let's see if there are any senior citizens (older than 64) with the last name Doe using the query constructor
-      var query = Stocks.find({'Symbol': 'AIRT'}); // (ok in this example, it's all entries)
-      query.where('Symbol').gt(AIRT);
-      query.exec(function(err, result) {
-	if (!err) {
-	  res.end(html4 + JSON.stringify(result, undefined, 2) + html5 + result.length + html6);
-	} else {
-	  res.end('Error in second query. ' + err)
-	}
-      });
-    } else {
-      res.end('Error in first query. ' + err)
-    };
-  });
+  Stocks.find(function (err, todos) {
+  if (err) return console.error(err);
+  console.log(todos)
+});
 }
 
 // Tell the console we're getting ready.
@@ -138,7 +125,7 @@ var html3 = ' documents. </i> <br\> <br\>';
 var html4 = '<h2> Queried (name.last = "Doe", age >64) Documents in MonogoDB database </h2> <pre><code> ';
 var html5 = '</code></pre> <br\> <i>';
 var html6 = ' documents. </i> <br\> <br\> \
-<br\> <br\> <center><i> Demo code available at <a href="http://github.com/mongolab/hello-mongoose">github.com</a> </i></center>';
+<br\> <br\> <center><i> Demo code available at  </i></center>';
 
 
 
