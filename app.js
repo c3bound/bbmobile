@@ -59,10 +59,5 @@ mongoose.connect(uristring, function (err, res) {
 });
 
 
-http.createServer(function (req, res) {
-  
-  
-}).listen(theport);
-
 
 
