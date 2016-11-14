@@ -95,19 +95,6 @@ http.createServer(function (req, res) {
 
 function createWebpage (req, res) {
 	
-	
-	var query = Stocks.findOne({});
-
-// selecting the `name` and `occupation` fields
-query.select('symbol');
-
-// execute the query at a later time
-query.exec(function (err, person) {
-  if (err) return handleError(err);
-  console.log('%s %s is a %s.', person.symbol) // Space Ghost is a talk show host.
-  res.write(html1 + JSON.stringify(person, undefined, 2) +  html2 + person.length + html3);
-})
-
 
 
  
