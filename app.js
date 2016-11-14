@@ -97,7 +97,7 @@ function createWebpage (req, res) {
   Stocks.find({}).exec(function(err, result) {
       if (!err) {
         // handle result
-		res.write(html1 + JSON.stringify(result, undefined, 2) +  html2 + result.length + html3);
+		res.write(html1 + JSON.stringify(result, undefined, 1) +  html2 + result.length + html3);
       
       } else {
         // error handling
