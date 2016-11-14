@@ -60,7 +60,7 @@ mongoose.connect(uristring, function (err, res) {
 
 // This is the schema.  Note the types, validation and trim
 // statements.  They enforce useful constraints on the data.
-var userSchema = mongoose.Schema({
+var userSchema = new mongoose.Schema({
 	
 	_id : String,
     Symbol : String,
