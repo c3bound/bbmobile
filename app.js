@@ -35,112 +35,20 @@
 //
 // Preamble
 
+var mongodb = require("mongodb");
 
-var http = require ('http');	     // For serving a basic web page.
-var mongoose = require ("mongoose"); // The reason for this demo.
+var MONGODB_URI = "mongodb://216.150.149.11:27017", // Make sure to replace that URI with the one provided by MongoLab
+    BlackBoxBeta,
+    AlertStreamNasdaq;
 
-// Here we find an appropriate database to connect to, defaulting to
-// localhost if we don't find one.  
-var uristring = 'mongodb://216.150.149.11:27017/BlackBoxBeta';
-
-// The http server will listen to an appropriate port, or default to
-// port 5000.
-var theport = process.env.PORT || 5000;
-
-// Makes connection asynchronously.  Mongoose will queue up database
-// operations and release them when the connection is complete.
-mongoose.connect(uristring, function (err, res) {
-  if (err) { 
-    console.log ('ERROR connecting to: ' + uristring + '. ' + err);
-  } else {
-    console.log ('Succeeded connected to: ' + uristring);
-  }
+mongodb.MongoClient.connect(MONGODB_URI, function (err, database) {
+  if (err) throw err;
+  db = database;
+  users = db.collection("AlertStreamNasdaq");
+  var server = app.listen(process.env.PORT || 3000);
+  console.log("Express server started on port %s", server.address().port);
 });
 
-
-// This is the schema.  Note the types, validation and trim
-// statements.  They enforce useful constraints on the data.
-var userSchema = new mongoose.Schema({
-	
-	_id : String,
-    Symbol : String,
-    CreatedDttm : String,
-    MessageType : String,
-    DateTime : String,
-    PriceAtAlert : String,
-    Message : String,
-    Exchange : String
-  
+users.find().toArray(function (err, results) {
+  // Do something
 });
-
-// Compiles the schema into a model, opening (or creating, if
-// nonexistent) the 'PowerUsers' collection in the MongoDB database
-var Stocks = mongoose.model('AlertStreamNasdaq', userSchema);
-
-
-
-// In case the browser connects before the database is connected, the
-// user will see this message.
-var found = ['DB Connection not yet established.  Try again later.  Check the console output for error messages if this persists.'];
-
-// Create a rudimentary http server.  (Note, a real web application
-// would use a complete web framework and router like express.js). 
-// This is effectively the main interaction loop for the application. 
-// As new http requests arrive, the callback function gets invoked.
-http.createServer(function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  createWebpage(req, res);
-}).listen(theport);
-
-function createWebpage (req, res) {
-	
-	
-	var query = Stocks.findOne({});
-
-// selecting the `name` and `occupation` fields
-query.select('symbol');
-
-// execute the query at a later time
-query.exec(function (err, person) {
-  if (err) return handleError(err);
-  console.log('%s %s is a %s.', person.symbol) // Space Ghost is a talk show host.
-  res.write(html1 + JSON.stringify(person, undefined, 2) +  html2 + person.length + html3);
-})
-
-
-
- 
-
-
-
-}
-
-// Tell the console we're getting ready.
-// The listener in http.createServer should still be active after these messages are emitted.
-console.log('http server will be listening on port %d', theport);
-console.log('CTRL+C to exit');
-
-//
-// House keeping.
-
-//
-// The rudimentary HTML content in three pieces.
-var html1 = '<title> hello-mongoose: MongoLab MongoDB Mongoose Node.js Demo on Heroku </title> \
-<head> \
-<style> body {color: #394a5f; font-family: sans-serif} </style> \
-</head> \
-<body> \
-<h1> hello-mongoose: MongoLab MongoDB Mongoose Node.js Demo on Heroku </h1> \
-See the <a href="https://devcenter.heroku.com/articles/nodejs-mongoose">supporting article on the Dev Center</a> to learn more about data modeling with Mongoose. \
-<br\> \
-<br\> \
-<br\> <h2> All Documents in MonogoDB database </h2> <pre><code> ';
-var html2 = '</code></pre> <br\> <i>';
-var html3 = ' documents. </i> <br\> <br\>';
-var html4 = '<h2> Queried (name.last = "Doe", age >64) Documents in MonogoDB database </h2> <pre><code> ';
-var html5 = '</code></pre> <br\> <i>';
-var html6 = ' documents. </i> <br\> <br\> \
-<br\> <br\> <center><i> Demo code available at  </i></center>';
-
-
-
