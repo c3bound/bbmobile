@@ -36,18 +36,26 @@
 // Preamble
 
 
-var mongoose = require("mongoose");
-mongoose.connect('mongodb://216.150.149.11:27017/BlackBoxBeta');
 
-var connection = mongoose.connection;
 
-connection.on('error', console.error.bind(console, 'connection error:'));
-connection.once('open', function () {
 
-    connection.db.collection("AlertStreamNasdaq", function(err, collection){
-        collection.find({}).toArray(function(err, data){
-            console.log(data); // it will print your collection data
-        })
-    });
+var mongoose = require('mongoose')
+  , MONGO_DB = 'mongodb://216.150.149.11:27017/BlackBoxBeta';
 
+mongoose.connect(MONGO_DB);
+
+mongoose.connection.on('open', function(){
+  mongoose.connection.db.collectionNames(function(error, collections) {
+    if (error) {
+      throw new Error(error);
+    } else {
+      collections.map(function(collection) {
+        console.log('found collection %s', collection.name);
+      });
+    }
+  });
+});
+
+mongoose.connection.on('error', function(error){
+  throw new Error(error);
 });
