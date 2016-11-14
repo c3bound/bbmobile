@@ -62,8 +62,14 @@ mongoose.connect(uristring, function (err, res) {
 // statements.  They enforce useful constraints on the data.
 var userSchema = new mongoose.Schema({
 	
-    Symbol : String
-  
+	_id : String,
+    Symbol : String,
+    CreatedDttm : String,
+    MessageType : String,
+    DateTime : String,
+    PriceAtAlert : String,
+    Message : String,
+    Exchange : String
   
 });
 
@@ -92,8 +98,8 @@ function createWebpage (req, res) {
     if (!err) { 
       res.write(html1 + JSON.stringify(result, undefined, 2) +  html2 + result.length + html3);
       // Let's see if there are any senior citizens (older than 64) with the last name Doe using the query constructor
-      var query = Stocks.find({'Symbol': 'AIRT'}); // (ok in this example, it's all entries)
-     
+      var query = Stocks.find({}); // (ok in this example, it's all entries)
+      query.where('MessageType').gt(5);
       query.exec(function(err, result) {
 	if (!err) {
 	  res.end(html4 + JSON.stringify(result, undefined, 2) + html5 + result.length + html6);
