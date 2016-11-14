@@ -60,7 +60,7 @@ mongoose.connect(uristring, function (err, res) {
 
 // This is the schema.  Note the types, validation and trim
 // statements.  They enforce useful constraints on the data.
-var userSchema = new mongoose.Schema({
+var userSchema = mongoose.Schema({
 	
 	_id : String,
     Symbol : String,
@@ -91,6 +91,10 @@ http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/html'});
   createWebpage(req, res);
 }).listen(theport);
+
+
+
+
 
 function createWebpage (req, res) {
   // Let's find all the documents
