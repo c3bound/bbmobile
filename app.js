@@ -93,24 +93,23 @@ http.createServer(function (req, res) {
 }).listen(theport);
 
 function createWebpage (req, res) {
-  // Let's find all the documents
-  Stocks.find(function (err, result) { 
-    if (!err) { 
-      res.write(html1 + JSON.stringify(result, undefined, 2) +  html2 + result.length + html3);
-      // Let's see if there are any senior citizens (older than 64) with the last name Doe using the query constructor
-      var query = Stocks.find({}); // (ok in this example, it's all entries)
-      query.where('MessageType').gt(5);
-      query.exec(function(err, result) {
-	if (!err) {
-	  res.end(html4 + JSON.stringify(result, undefined, 2) + html5 + result.length + html6);
-	} else {
-	  res.end('Error in second query. ' + err)
-	}
-      });
-    } else {
-      res.end('Error in first query. ' + err)
-    };
-  });
+	
+	
+	var query = Stocks.findOne({});
+
+// selecting the `name` and `occupation` fields
+query.select('symbol');
+
+// execute the query at a later time
+query.exec(function (err, person) {
+  if (err) return handleError(err);
+  console.log('%s %s is a %s.', person.symbol) // Space Ghost is a talk show host.
+  res.write(html1 + JSON.stringify(person, undefined, 2) +  html2 + person.length + html3);
+})
+
+
+
+ 
 
 
 
