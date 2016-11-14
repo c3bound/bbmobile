@@ -58,6 +58,15 @@ mongoose.connect(uristring, function (err, res) {
   }
 });
 
+mongoose.connection.on('open', function (ref) {
+    console.log('Connected to mongo server.');
+    //trying to get collection names
+    mongoose.connection.db.collectionNames(function (err, names) {
+        console.log(names); // [{ name: 'dbname.myCollection' }]
+        module.exports.Collection = names;
+    });
+})
+
 
 // This is the schema.  Note the types, validation and trim
 // statements.  They enforce useful constraints on the data.
